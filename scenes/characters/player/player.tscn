@@ -1,7 +1,11 @@
-[gd_scene load_steps=45 format=3 uid="uid://ccvmgjnxtfvrd"]
+[gd_scene load_steps=49 format=3 uid="uid://ccvmgjnxtfvrd"]
 
+[ext_resource type="Script" uid="uid://dxpentrl4wnfi" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://b2vcjh4qpkwkb" path="res://assets/game/characters/basic_character_actions.png" id="1_t61fv"]
 [ext_resource type="Texture2D" uid="uid://kplre4vanko4" path="res://assets/game/characters/basic_character_spritesheet.png" id="2_686vu"]
+[ext_resource type="Script" uid="uid://o3atgvxeqrqe" path="res://scripts/state_machine/node_state_machine.gd" id="3_hss88"]
+[ext_resource type="Script" uid="uid://bbd8om0if5e4t" path="res://scenes/characters/player/idle_state.gd" id="4_qd3e3"]
+[ext_resource type="Script" uid="uid://by8chb02m3eh0" path="res://scenes/characters/player/walk_state.gd" id="5_qd3e3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hss88"]
 atlas = ExtResource("1_t61fv")
@@ -217,7 +221,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_blysn")
 }],
 "loop": true,
-"name": &"idle back",
+"name": &"idle_back",
 "speed": 3.0
 }, {
 "frames": [{
@@ -228,7 +232,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ykrpk")
 }],
 "loop": true,
-"name": &"idle front",
+"name": &"idle_front",
 "speed": 3.0
 }, {
 "frames": [{
@@ -390,14 +394,28 @@ animations = [{
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6avc5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_omk8d")
-animation = &"idle front"
-autoplay = "idle front"
-frame_progress = 0.8655046
+animation = &"tilling_back"
+autoplay = "idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_kghjy")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+script = ExtResource("3_hss88")
+initial_node_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("4_qd3e3")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("5_qd3e3")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
