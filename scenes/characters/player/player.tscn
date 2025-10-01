@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://ccvmgjnxtfvrd"]
+[gd_scene load_steps=53 format=3 uid="uid://ccvmgjnxtfvrd"]
 
 [ext_resource type="Script" uid="uid://dxpentrl4wnfi" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://b2vcjh4qpkwkb" path="res://assets/game/characters/basic_character_actions.png" id="1_t61fv"]
 [ext_resource type="Texture2D" uid="uid://kplre4vanko4" path="res://assets/game/characters/basic_character_spritesheet.png" id="2_686vu"]
 [ext_resource type="Script" uid="uid://o3atgvxeqrqe" path="res://scripts/state_machine/node_state_machine.gd" id="3_hss88"]
+[ext_resource type="Texture2D" uid="uid://syqdemi0ubki" path="res://assets/test/CharacterAnimations/Idle.png" id="4_3xnwo"]
 [ext_resource type="Script" uid="uid://bbd8om0if5e4t" path="res://scenes/characters/player/idle_state.gd" id="4_qd3e3"]
 [ext_resource type="Script" uid="uid://by8chb02m3eh0" path="res://scenes/characters/player/walk_state.gd" id="5_qd3e3"]
 [ext_resource type="Script" uid="uid://bpbewu2cf6gc2" path="res://scenes/characters/player/chopping_state.gd" id="7_mk55u"]
@@ -51,12 +52,12 @@ atlas = ExtResource("2_686vu")
 region = Rect2(48, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hv5x3"]
-atlas = ExtResource("2_686vu")
-region = Rect2(0, 0, 48, 48)
+atlas = ExtResource("4_3xnwo")
+region = Rect2(0, 0, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykrpk"]
-atlas = ExtResource("2_686vu")
-region = Rect2(48, 0, 48, 48)
+atlas = ExtResource("4_3xnwo")
+region = Rect2(512, 0, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i1nod"]
 atlas = ExtResource("2_686vu")
@@ -400,9 +401,11 @@ radius = 8.0
 script = ExtResource("1_6avc5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
 position = Vector2(0, -8)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_omk8d")
-animation = &"watering_right"
+animation = &"idle_front"
 autoplay = "idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
